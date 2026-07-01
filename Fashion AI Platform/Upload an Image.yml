@@ -1,23 +1,25 @@
 info:
-  name: Create Project
+  name: Upload an Image
   type: http
-  seq: 4
+  seq: 14
 
 http:
   method: POST
-  url: http://localhost:4000/projects
+  url: http://localhost:4000/uploads
   headers:
     - name: Authorization
       value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIwbGkwejYwMDAwdWw1ODRkY3RpMjI1IiwiaWF0IjoxNzgyODQzOTUzLCJleHAiOjE3ODM0NDg3NTN9.z2phafDuhyMIPl2nuaXq0HpjwH2qsFYqZ8SzXIEwcMs
-    - name: Content-Type
-      value: application/json
   body:
-    type: json
-    data: |-
-      {
-        "name": "My First Project",
-        "description": "Sprint 2 test project"
-      }
+    type: multipart-form
+    data:
+      - name: projectId
+        type: text
+        value: cmr21l7w70001ul7ganj4yw77
+      - name: image
+        type: file
+        value:
+          - C:\Users\hari\Downloads\Lucid_Origin_make_a_instagram_reel_and_youtube_shorts_layout_f_1.jpg
+        contentType: image/jpeg
   auth: inherit
 
 settings:

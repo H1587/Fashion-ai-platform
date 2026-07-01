@@ -1,0 +1,28 @@
+info:
+  name: Create a Project
+  type: http
+  seq: 13
+
+http:
+  method: POST
+  url: http://localhost:4000/projects
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIwbHQxajkwMDAwdWxja2dhMGR0eGFpIiwiaWF0IjoxNzgyOTAzNTM4LCJleHAiOjE3ODM1MDgzMzh9.kQgj3rFvS_1N-E2R_QWz3X4tX0e1AGe2xxP13MqQn-k
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Sprint 3 Upload Test",
+        "description": "Testing image upload functionality",
+        "garmentType": "SHIRT"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
