@@ -1,0 +1,18 @@
+info:
+  name: DELETE - Invalid JWT
+  type: http
+  seq: 10
+
+http:
+  method: DELETE
+  url: http://localhost:4000/projects/cmr0u92vi0001ul581nlocria
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIwbGkwejYwMDAwdWw1ODRkY3RpMjI1IiwiaWF0IjoxNzgyODI0MTA0LCJleHAiOjE3ODM0Mjg5MDR9.xkH-G10ctDgQHHJQwhhPz5Qk20PqZGHUZhI4b55Y5-k
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

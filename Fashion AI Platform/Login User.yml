@@ -1,0 +1,22 @@
+info:
+  name: Login User
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://127.0.0.1:4000/auth/login
+  body:
+    type: json
+    data: |-
+      {
+        "email": "test@example.com",
+        "password": "Password123"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,29 @@
+info:
+  name: Failure test - Update Project (Success) copy
+  type: http
+  seq: 8
+
+http:
+  method: PUT
+  url: http://localhost:4000/projects/cmr0u92vi0001ul581nlocria
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIwbGkwejYwMDAwdWw1ODRkY3RpMjI1IiwiaWF0IjoxNzgyODQzOTUzLCJleHAiOjE3ODM0NDg3NTN9.z2phafDuhyMIPl2nuaXq0HpjwH2qsFYqZ8SzXIEwcMs
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Updated Fashion Project",
+        "description": "Updated project description.",
+        "garmentType": "SHIRT",
+        "status": "COMPLETED"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
