@@ -16,6 +16,12 @@ enum GarmentType {
   SHIRT
 }
 
+enum AnalysisStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
 model User {
   id           String  @id @default(cuid())
   email        String  @unique
@@ -40,7 +46,7 @@ model Project {
   status      ProjectStatus @default(DRAFT)
 
   userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   images Image[]
 
@@ -61,7 +67,46 @@ model Image {
   mimeType         String
   size             Int
 
+  analyses ImageAnalysis[]
+
   createdAt DateTime @default(now())
 
   @@index([projectId])
+}
+
+model ImageAnalysis {
+  id String @id @default(cuid())
+
+  imageId String
+  image   Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  provider      String
+  model         String
+  promptVersion String
+
+  status AnalysisStatus
+
+  garmentCategory String?
+  garmentType     String?
+  primaryColor    String?
+  secondaryColor  String?
+  pattern         String?
+  sleeveType      String?
+  collarType      String?
+  fit             String?
+  closureType     String?
+  pocketType      String?
+  fabricGuess     String?
+  gender          String?
+  season          String?
+  style           String?
+
+  confidence Float?
+
+  rawResponse Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([imageId])
 }

@@ -1,0 +1,1 @@
+export type { GarmentAnalysis } from "./garment-analysis.type.js";
