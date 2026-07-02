@@ -1,0 +1,1 @@
+export type { ProductSpecification } from "./product-specification.type.js";

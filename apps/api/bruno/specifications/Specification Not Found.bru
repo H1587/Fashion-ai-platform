@@ -1,0 +1,15 @@
+meta {
+  name: Specification Not Found
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/specifications/images/{{imageWithoutSpecification}}/specification
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{jwt}}
+}

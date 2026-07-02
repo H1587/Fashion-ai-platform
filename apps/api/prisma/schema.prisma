@@ -46,7 +46,7 @@ model Project {
   status      ProjectStatus @default(DRAFT)
 
   userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   images Image[]
 
@@ -67,7 +67,8 @@ model Image {
   mimeType         String
   size             Int
 
-  analyses ImageAnalysis[]
+  analyses       ImageAnalysis[]
+  specifications ProductSpecification[]
 
   createdAt DateTime @default(now())
 
@@ -78,7 +79,7 @@ model ImageAnalysis {
   id String @id @default(cuid())
 
   imageId String
-  image   Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  image   Image  @relation(fields: [imageId], references: [id], onDelete: Cascade)
 
   provider      String
   model         String
@@ -105,8 +106,54 @@ model ImageAnalysis {
 
   rawResponse Json?
 
+  specifications ProductSpecification[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([imageId])
+}
+
+model ProductSpecification {
+  id String @id @default(cuid())
+
+  imageId String
+  image   Image  @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  analysisId String
+  analysis   ImageAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  productName     String?
+  productCategory String?
+  productType     String?
+
+  gender String?
+
+  primaryColour   String?
+  secondaryColour String?
+
+  fabric  String?
+  pattern String?
+
+  fit String?
+
+  sleeve  String?
+  collar  String?
+  closure String?
+  pocket  String?
+
+  season String?
+  style  String?
+
+  description String?
+
+  keyFeatures Json?
+
+  manufacturingNotes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([imageId])
+  @@index([analysisId])
 }

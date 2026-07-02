@@ -1,0 +1,1 @@
+export { SpecificationMapper } from "./specification.mapper.js";

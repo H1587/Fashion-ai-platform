@@ -1,0 +1,15 @@
+meta {
+  name: Unauthorized Image
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/specifications/images/{{unauthorizedImageId}}/specification
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{jwt}}
+}

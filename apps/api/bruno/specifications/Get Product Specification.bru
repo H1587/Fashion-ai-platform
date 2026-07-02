@@ -1,0 +1,15 @@
+meta {
+  name: Get Product Specification
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/specifications/images/{{imageId}}/specification
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{jwt}}
+}
