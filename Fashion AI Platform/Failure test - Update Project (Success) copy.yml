@@ -1,7 +1,7 @@
 info:
   name: Failure test - Update Project (Success) copy
   type: http
-  seq: 8
+  seq: 11
 
 http:
   method: PUT

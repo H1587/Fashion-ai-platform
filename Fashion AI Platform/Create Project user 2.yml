@@ -1,14 +1,14 @@
 info:
-  name: Create Project
+  name: Create Project user 2
   type: http
-  seq: 6
+  seq: 7
 
 http:
   method: POST
   url: http://localhost:4000/projects
   headers:
     - name: Authorization
-      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIwbGkwejYwMDAwdWw1ODRkY3RpMjI1IiwiaWF0IjoxNzgyODQzOTUzLCJleHAiOjE3ODM0NDg3NTN9.z2phafDuhyMIPl2nuaXq0HpjwH2qsFYqZ8SzXIEwcMs
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIzamgzcHEwMDBsdWw3Z2E2bHZobWYwIiwiaWF0IjoxNzgyOTk4ODcwLCJleHAiOjE3ODM2MDM2NzB9.0a-iRzGRHDauHrUbz0jll_DgY2TZJ3yW1Kds8P4_Z-M
     - name: Content-Type
       value: application/json
   body:

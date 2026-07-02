@@ -1,5 +1,5 @@
 info:
-  name: Upload an Image
+  name: Upload an Image user 2
   type: http
   seq: 17
 
@@ -8,13 +8,13 @@ http:
   url: http://localhost:4000/uploads
   headers:
     - name: Authorization
-      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIwbGkwejYwMDAwdWw1ODRkY3RpMjI1IiwiaWF0IjoxNzgyODQzOTUzLCJleHAiOjE3ODM0NDg3NTN9.z2phafDuhyMIPl2nuaXq0HpjwH2qsFYqZ8SzXIEwcMs
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXIzamgzcHEwMDBsdWw3Z2E2bHZobWYwIiwiaWF0IjoxNzgyOTk4ODcwLCJleHAiOjE3ODM2MDM2NzB9.0a-iRzGRHDauHrUbz0jll_DgY2TZJ3yW1Kds8P4_Z-M
   body:
     type: multipart-form
     data:
       - name: projectId
         type: text
-        value: cmr21l7w70001ul7ganj4yw77
+        value: cmr3jvs7t000pul7g46u6nrwl
       - name: image
         type: file
         value:

@@ -1,7 +1,7 @@
 info:
   name: DELETE - Delete Project (Success)
   type: http
-  seq: 9
+  seq: 12
 
 http:
   method: DELETE
