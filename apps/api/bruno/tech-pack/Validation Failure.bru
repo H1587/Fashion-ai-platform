@@ -1,0 +1,23 @@
+meta {
+  name: Validation Failure
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/tech-pack/{{techPackId}}
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {}
+}

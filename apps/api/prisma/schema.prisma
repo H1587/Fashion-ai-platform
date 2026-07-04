@@ -151,9 +151,43 @@ model ProductSpecification {
 
   manufacturingNotes String?
 
+  techPack TechPack?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([imageId])
   @@index([analysisId])
+}
+
+model TechPack {
+  id String @id @default(cuid())
+
+  specificationId String @unique
+  specification   ProductSpecification @relation(fields: [specificationId], references: [id], onDelete: Cascade)
+
+  title String?
+
+  technicalDescription String?
+
+  constructionDetails String?
+
+  fabricDetails String?
+
+  trimDetails String?
+
+  measurementNotes String?
+
+  fitNotes String?
+
+  careInstructions String?
+
+  packagingInstructions String?
+
+  qualityNotes String?
+
+  revision Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

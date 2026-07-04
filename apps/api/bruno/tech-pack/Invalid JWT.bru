@@ -1,0 +1,18 @@
+meta {
+  name: Invalid JWT
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/tech-pack/images/{{imageId}}/tech-pack
+  auth: bearer
+}
+
+auth:bearer {
+  token: invalid-jwt-token
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Generate Tech Pack
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/tech-pack/images/{{imageId}}/tech-pack
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+headers {
+  Accept: application/json
+}

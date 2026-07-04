@@ -1,0 +1,27 @@
+meta {
+  name: Update Tech Pack
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/tech-pack/{{techPackId}}
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "title": "Updated Tech Pack",
+    "fitNotes": "Updated fit notes",
+    "revision": 2
+  }
+}
