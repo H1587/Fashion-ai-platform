@@ -9,7 +9,14 @@ import { UploadRepository } from "../../uploads/repository/upload.repository.js"
 import { ProductSpecificationRepository } from "../../product-specification/repository/product-specification.repository.js";
 
 import { TechPackRepository } from "../repository/tech-pack.repository.js";
-import { TechPackMapper } from "../mapper/tech-pack.mapper.js";
+import { TechPackAIMapper } from "../mapper/tech-pack-ai.mapper.js";
+import { TechPackAIParser } from "../parser/tech-pack-ai.parser.js";
+import { buildTechPackPrompt } from "../prompts/tech-pack-generation.prompt.js";
+
+import {
+    GeminiProvider,
+    type AIProvider,
+} from "../../../services/ai/index.js";
 
 import type { TechPackDTO } from "../dto/tech-pack.dto.js";
 
@@ -19,8 +26,11 @@ export class TechPackService {
     private readonly specificationRepository: ProductSpecificationRepository;
 
     private readonly repository: TechPackRepository;
+    private readonly aiProvider: AIProvider;
 
-    constructor() {
+    constructor(
+        aiProvider: AIProvider = new GeminiProvider()
+    ) {
         this.uploadRepository =
             new UploadRepository(prisma);
 
@@ -29,6 +39,8 @@ export class TechPackService {
 
         this.repository =
             new TechPackRepository(prisma);
+
+        this.aiProvider = aiProvider;
     }
 
     async generateTechPack(
@@ -66,9 +78,25 @@ export class TechPackService {
             return existing;
         }
 
-        const techPack =
-            TechPackMapper.fromProductSpecification(
+        const prompt =
+            buildTechPackPrompt(
                 specification as ProductSpecification
+            );
+
+        const aiResponse =
+            await this.aiProvider.generateText(
+                prompt
+            );
+
+        const parsedResponse =
+            TechPackAIParser.parse(
+                aiResponse.text
+            );
+
+        const techPack =
+            TechPackAIMapper.toTechPackDTO(
+                specification.id,
+                parsedResponse
             );
 
         return this.repository.create(

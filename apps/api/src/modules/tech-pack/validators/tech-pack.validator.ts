@@ -35,13 +35,48 @@ export const FabricSpecificationSchema = z.object({
     color: z.string().optional(),
 });
 
+export const ButtonSchema = z.object({
+    type: z.string().optional(),
+    size: z.string().optional(),
+    color: z.string().optional(),
+});
+
+export const ZipperSchema = z.object({
+    type: z.string().optional(),
+    size: z.string().optional(),
+    color: z.string().optional(),
+});
+
+export const LabelSchema = z.object({
+    type: z.string().optional(),
+    placement: z.string().optional(),
+    material: z.string().optional(),
+});
+
+export const TagSchema = z.object({
+    type: z.string().optional(),
+    attachment: z.string().optional(),
+});
+
+export const ThreadSchema = z.object({
+    type: z.string().optional(),
+    ticket: z.string().optional(),
+    color: z.string().optional(),
+});
+
+export const AccessorySchema = z.object({
+    type: z.string().optional(),
+    attachment: z.string().optional(),
+    quantity: z.string().optional(),
+});
+
 export const TrimSpecificationSchema = z.object({
-    buttons: z.array(z.string()).optional(),
-    zippers: z.array(z.string()).optional(),
-    labels: z.array(z.string()).optional(),
-    tags: z.array(z.string()).optional(),
-    threads: z.array(z.string()).optional(),
-    accessories: z.array(z.string()).optional(),
+    buttons: z.array(ButtonSchema).optional(),
+    zippers: z.array(ZipperSchema).optional(),
+    labels: z.array(LabelSchema).optional(),
+    tags: z.array(TagSchema).optional(),
+    threads: z.array(ThreadSchema).optional(),
+    accessories: z.array(AccessorySchema).optional(),
 });
 
 export const StitchSpecificationSchema = z.object({

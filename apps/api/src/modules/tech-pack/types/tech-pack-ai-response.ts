@@ -1,4 +1,4 @@
-export interface GarmentIdentification {
+export interface GarmentIdentificationResponse {
     productName?: string;
     garmentType?: string;
     category?: string;
@@ -7,7 +7,7 @@ export interface GarmentIdentification {
     style?: string;
 }
 
-export interface ConstructionSpecification {
+export interface ConstructionSpecificationResponse {
     constructionType?: string;
     operations?: string[];
     collarConstruction?: string;
@@ -19,7 +19,7 @@ export interface ConstructionSpecification {
     notes?: string;
 }
 
-export interface FabricSpecification {
+export interface FabricSpecificationResponse {
     primaryFabric?: string;
     composition?: string;
     gsm?: string;
@@ -29,75 +29,75 @@ export interface FabricSpecification {
     color?: string;
 }
 
-export interface Button {
+export interface ButtonResponse {
     type?: string;
     size?: string;
     color?: string;
 }
 
-export interface Zipper {
+export interface ZipperResponse {
     type?: string;
     size?: string;
     color?: string;
 }
 
-export interface Label {
+export interface LabelResponse {
     type?: string;
     placement?: string;
     material?: string;
 }
 
-export interface Tag {
+export interface TagResponse {
     type?: string;
     attachment?: string;
 }
 
-export interface Thread {
+export interface ThreadResponse {
     type?: string;
     ticket?: string;
     color?: string;
 }
 
-export interface Accessory {
+export interface AccessoryResponse {
     type?: string;
     attachment?: string;
     quantity?: string;
 }
 
-export interface TrimSpecification {
-    buttons?: Button[];
-    zippers?: Zipper[];
-    labels?: Label[];
-    tags?: Tag[];
-    threads?: Thread[];
-    accessories?: Accessory[];
+export interface TrimSpecificationResponse {
+    buttons?: ButtonResponse[];
+    zippers?: ZipperResponse[];
+    labels?: LabelResponse[];
+    tags?: TagResponse[];
+    threads?: ThreadResponse[];
+    accessories?: AccessoryResponse[];
 }
 
-export interface StitchSpecification {
+export interface StitchSpecificationResponse {
     stitchTypes?: string[];
     stitchDensity?: string;
     reinforcementAreas?: string[];
 }
 
-export interface SeamSpecification {
+export interface SeamSpecificationResponse {
     seamTypes?: string[];
     seamFinish?: string;
     seamAllowance?: string;
     topStitchDetails?: string;
 }
 
-export interface FitSpecification {
+export interface FitSpecificationResponse {
     fit?: string;
     silhouette?: string;
     ease?: string;
 }
 
-export interface ManufacturingNotes {
+export interface ManufacturingNotesResponse {
     notes?: string[];
     specialInstructions?: string[];
 }
 
-export interface CareSpecification {
+export interface CareSpecificationResponse {
     washing?: string;
     bleaching?: string;
     drying?: string;
@@ -105,14 +105,14 @@ export interface CareSpecification {
     dryCleaning?: string;
 }
 
-export interface PackagingSpecification {
+export interface PackagingSpecificationResponse {
     foldingMethod?: string;
     packagingMaterials?: string[];
     cartonSpecification?: string;
     labelingInstructions?: string[];
 }
 
-export interface QualityChecklist {
+export interface QualityChecklistResponse {
     appearanceChecks?: string[];
     measurementChecks?: string[];
     stitchingChecks?: string[];
@@ -120,34 +120,28 @@ export interface QualityChecklist {
     packagingChecks?: string[];
 }
 
-export interface TechPackDTO {
-    specificationId: string;
+export interface TechPackAIResponse {
+    schemaVersion: string;
 
-    title?: string;
+    garmentIdentification: GarmentIdentificationResponse;
 
-    technicalDescription?: string;
+    constructionSpecification: ConstructionSpecificationResponse;
 
-    garmentIdentification?: GarmentIdentification;
+    fabricSpecification: FabricSpecificationResponse;
 
-    constructionSpecification?: ConstructionSpecification;
+    trimSpecification: TrimSpecificationResponse;
 
-    fabricSpecification?: FabricSpecification;
+    stitchSpecification: StitchSpecificationResponse;
 
-    trimSpecification?: TrimSpecification;
+    seamSpecification: SeamSpecificationResponse;
 
-    stitchSpecification?: StitchSpecification;
+    fitSpecification: FitSpecificationResponse;
 
-    seamSpecification?: SeamSpecification;
+    manufacturingNotes: ManufacturingNotesResponse;
 
-    fitSpecification?: FitSpecification;
+    careSpecification: CareSpecificationResponse;
 
-    manufacturingNotes?: ManufacturingNotes;
+    packagingSpecification: PackagingSpecificationResponse;
 
-    careSpecification?: CareSpecification;
-
-    packagingSpecification?: PackagingSpecification;
-
-    qualityChecklist?: QualityChecklist;
-
-    revision?: number;
+    qualityChecklist: QualityChecklistResponse;
 }

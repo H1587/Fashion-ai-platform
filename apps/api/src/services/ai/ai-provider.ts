@@ -13,4 +13,8 @@ export interface AIProvider {
     analyzeImage(
         request: AnalyzeImageRequest
     ): Promise<AnalyzeImageResponse>;
+
+    generateText(
+        prompt: string
+    ): Promise<AnalyzeImageResponse>;
 }

@@ -21,27 +21,49 @@ export class GeminiProvider implements AIProvider {
             apiKey,
         });
 
-        this.model = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+        this.model =
+            process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
     }
 
     async analyzeImage(
         request: AnalyzeImageRequest
     ): Promise<AnalyzeImageResponse> {
 
-        const response = await this.client.models.generateContent({
-            model: this.model,
-            contents: [
-                {
-                    text: request.prompt,
-                },
-                {
-                    inlineData: {
-                        mimeType: request.mimeType,
-                        data: request.imageBase64,
+        const response =
+            await this.client.models.generateContent({
+                model: this.model,
+                contents: [
+                    {
+                        text: request.prompt,
                     },
-                },
-            ],
-        });
+                    {
+                        inlineData: {
+                            mimeType: request.mimeType,
+                            data: request.imageBase64,
+                        },
+                    },
+                ],
+            });
+
+        return {
+            rawResponse: response,
+            text: response.text ?? "",
+        };
+    }
+
+    async generateText(
+        prompt: string
+    ): Promise<AnalyzeImageResponse> {
+
+        const response =
+            await this.client.models.generateContent({
+                model: this.model,
+                contents: [
+                    {
+                        text: prompt,
+                    },
+                ],
+            });
 
         return {
             rawResponse: response,
