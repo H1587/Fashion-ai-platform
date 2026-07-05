@@ -1,0 +1,15 @@
+meta {
+  name: Get Engineering Assets
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/engineering-assets/images/{{imageId}}/engineering-assets
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt}}
+}

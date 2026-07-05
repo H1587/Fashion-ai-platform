@@ -210,6 +210,43 @@ model TechPack {
 
   revision Int @default(1)
 
+  engineeringAssets EngineeringAsset[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum EngineeringAssetType {
+  FLAT_SKETCH
+  TECHNICAL_SKETCH
+  COLLAR_DETAIL
+  SLEEVE_DETAIL
+  POCKET_DETAIL
+  PLACKET_DETAIL
+  BUTTON_DETAIL
+  CONSTRUCTION_ILLUSTRATION
+  REFERENCE_IMAGE
+}
+
+model EngineeringAsset {
+  id String @id @default(cuid())
+
+  techPackId String
+  techPack TechPack @relation(fields: [techPackId], references: [id], onDelete: Cascade)
+
+  assetType EngineeringAssetType
+
+  title String?
+
+  description String?
+
+  assetData Json?
+
+  revision Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([techPackId])
+  @@index([assetType])
 }

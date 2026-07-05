@@ -11,6 +11,7 @@ import aiRoutes from "./modules/ai/routes/ai.routes.js";
 import productSpecificationRoutes from "./modules/product-specification/routes/product-specification.routes.js";
 import designWizardRoutes from "./modules/design-wizard/routes/design-wizard.routes.js";
 import techPackRoutes from "./modules/tech-pack/routes/tech-pack.routes.js";
+import engineeringAssetRoutes from "./modules/engineering-assets/routes/engineering-asset.routes.js";
 import exportRoutes from "./modules/export/routes/export.routes.js";
 import healthRoutes from "./routes/health.routes.js";
 
@@ -33,6 +34,10 @@ app.use("/ai", aiRoutes);
 app.use("/specifications", productSpecificationRoutes);
 app.use("/design-wizard", designWizardRoutes);
 app.use("/tech-pack", techPackRoutes);
+app.use(
+    "/engineering-assets",
+    engineeringAssetRoutes
+);
 app.use("/exports", exportRoutes);
 
 app.use("/", healthRoutes);
