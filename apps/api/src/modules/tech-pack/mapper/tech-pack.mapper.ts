@@ -9,28 +9,63 @@ export class TechPackMapper {
         return {
             specificationId: specification.id,
 
-            title: specification.productName ?? undefined,
+            title:
+                specification.productName ?? undefined,
 
             technicalDescription:
                 specification.description ?? undefined,
 
-            constructionDetails:
-                specification.manufacturingNotes ?? undefined,
+            garmentIdentification: {
+                productName:
+                    specification.productName ?? undefined,
 
-            fabricDetails:
-                specification.fabric ?? undefined,
+                garmentType:
+                    specification.productType ?? undefined,
 
-            trimDetails: undefined,
+                category:
+                    specification.productCategory ?? undefined,
 
-            measurementNotes: undefined,
+                gender:
+                    specification.gender ?? undefined,
 
-            fitNotes: specification.fit ?? undefined,
+                season:
+                    specification.season ?? undefined,
 
-            careInstructions: undefined,
+                style:
+                    specification.style ?? undefined,
+            },
 
-            packagingInstructions: undefined,
+            constructionSpecification: {
+                notes:
+                    specification.manufacturingNotes ?? undefined,
+            },
 
-            qualityNotes: undefined,
+            fabricSpecification: {
+                primaryFabric:
+                    specification.fabric ?? undefined,
+
+                color:
+                    specification.primaryColour ?? undefined,
+            },
+
+            fitSpecification: {
+                fit:
+                    specification.fit ?? undefined,
+            },
+
+            trimSpecification: undefined,
+
+            stitchSpecification: undefined,
+
+            seamSpecification: undefined,
+
+            manufacturingNotes: undefined,
+
+            careSpecification: undefined,
+
+            packagingSpecification: undefined,
+
+            qualityChecklist: undefined,
 
             revision: 1,
         };

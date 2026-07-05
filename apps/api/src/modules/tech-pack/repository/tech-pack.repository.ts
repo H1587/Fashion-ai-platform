@@ -1,4 +1,5 @@
 import {
+    Prisma,
     PrismaClient,
     type TechPack,
 } from "@prisma/client";
@@ -12,6 +13,14 @@ export class TechPackRepository {
         private readonly prismaClient: PrismaClient = prisma
     ) { }
 
+    private toJson(
+        value: unknown
+    ): Prisma.InputJsonValue | undefined {
+        return value === undefined
+            ? undefined
+            : (value as Prisma.InputJsonValue);
+    }
+
     async create(
         data: TechPackDTO
     ): Promise<TechPack> {
@@ -24,29 +33,42 @@ export class TechPackRepository {
                 technicalDescription:
                     data.technicalDescription,
 
-                constructionDetails:
-                    data.constructionDetails,
+                // -----------------------------------------------------------------
+                // Sprint 9 structured engineering sections
+                // -----------------------------------------------------------------
 
-                fabricDetails:
-                    data.fabricDetails,
+                garmentIdentification:
+                    this.toJson(data.garmentIdentification),
 
-                trimDetails:
-                    data.trimDetails,
+                constructionSpecification:
+                    this.toJson(data.constructionSpecification),
 
-                measurementNotes:
-                    data.measurementNotes,
+                fabricSpecification:
+                    this.toJson(data.fabricSpecification),
 
-                fitNotes:
-                    data.fitNotes,
+                trimSpecification:
+                    this.toJson(data.trimSpecification),
 
-                careInstructions:
-                    data.careInstructions,
+                stitchSpecification:
+                    this.toJson(data.stitchSpecification),
 
-                packagingInstructions:
-                    data.packagingInstructions,
+                seamSpecification:
+                    this.toJson(data.seamSpecification),
 
-                qualityNotes:
-                    data.qualityNotes,
+                fitSpecification:
+                    this.toJson(data.fitSpecification),
+
+                manufacturingNotes:
+                    this.toJson(data.manufacturingNotes),
+
+                careSpecification:
+                    this.toJson(data.careSpecification),
+
+                packagingSpecification:
+                    this.toJson(data.packagingSpecification),
+
+                qualityChecklist:
+                    this.toJson(data.qualityChecklist),
 
                 revision:
                     data.revision ?? 1,
@@ -104,34 +126,44 @@ export class TechPackRepository {
                 id,
             },
             data: {
-                title: data.title,
+                title:
+                    data.title,
 
                 technicalDescription:
                     data.technicalDescription,
 
-                constructionDetails:
-                    data.constructionDetails,
+                garmentIdentification:
+                    this.toJson(data.garmentIdentification),
 
-                fabricDetails:
-                    data.fabricDetails,
+                constructionSpecification:
+                    this.toJson(data.constructionSpecification),
 
-                trimDetails:
-                    data.trimDetails,
+                fabricSpecification:
+                    this.toJson(data.fabricSpecification),
 
-                measurementNotes:
-                    data.measurementNotes,
+                trimSpecification:
+                    this.toJson(data.trimSpecification),
 
-                fitNotes:
-                    data.fitNotes,
+                stitchSpecification:
+                    this.toJson(data.stitchSpecification),
 
-                careInstructions:
-                    data.careInstructions,
+                seamSpecification:
+                    this.toJson(data.seamSpecification),
 
-                packagingInstructions:
-                    data.packagingInstructions,
+                fitSpecification:
+                    this.toJson(data.fitSpecification),
 
-                qualityNotes:
-                    data.qualityNotes,
+                manufacturingNotes:
+                    this.toJson(data.manufacturingNotes),
+
+                careSpecification:
+                    this.toJson(data.careSpecification),
+
+                packagingSpecification:
+                    this.toJson(data.packagingSpecification),
+
+                qualityChecklist:
+                    this.toJson(data.qualityChecklist),
 
                 revision:
                     data.revision,

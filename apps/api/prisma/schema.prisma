@@ -186,6 +186,28 @@ model TechPack {
 
   qualityNotes String?
 
+  garmentIdentification Json?
+
+  constructionSpecification Json?
+
+  fabricSpecification Json?
+
+  trimSpecification Json?
+
+  stitchSpecification Json?
+
+  seamSpecification Json?
+
+  fitSpecification Json?
+
+  manufacturingNotes Json?
+
+  careSpecification Json?
+
+  packagingSpecification Json?
+
+  qualityChecklist Json?
+
   revision Int @default(1)
 
   createdAt DateTime @default(now())
