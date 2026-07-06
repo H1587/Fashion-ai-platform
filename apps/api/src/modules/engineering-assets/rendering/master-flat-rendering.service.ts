@@ -1,0 +1,79 @@
+import type {
+    AIProvider,
+} from "../../../services/ai/ai-provider.js";
+
+import {
+    EngineeringAssetType,
+} from "@prisma/client";
+
+import type {
+    MasterGarmentRepresentation,
+    MasterFlatSketch,
+} from "../types/master-garment-representation.js";
+
+import {
+    EngineeringAssetPromptBuilder,
+} from "../prompts/engineering-asset-prompt-builder.js";
+
+export class MasterFlatRenderingService {
+
+    constructor(
+        private readonly provider: AIProvider
+    ) { }
+
+    async render(
+        master: MasterGarmentRepresentation
+    ): Promise<MasterFlatSketch> {
+
+        const promptBuilder =
+            new EngineeringAssetPromptBuilder();
+
+        const prompt =
+            promptBuilder.buildMasterFlat(
+                master
+            );
+
+        const response =
+            await this.provider.generateImage({
+
+                assetType:
+                    EngineeringAssetType.FLAT_SKETCH,
+
+                prompt,
+
+            });
+
+        const rendered =
+            response.renderedOutput
+                .renderedAssets[0];
+
+        if (!rendered) {
+
+            throw new Error(
+                "Failed to generate Master Flat Sketch."
+            );
+
+        }
+
+        return {
+
+            prompt:
+                prompt.instructions,
+
+            image:
+                rendered.renderedOutput,
+
+            provider:
+                rendered.metadata?.provider as string,
+
+            providerModel:
+                rendered.metadata?.model as string,
+
+            promptVersion:
+                prompt.metadata.promptVersion,
+
+        };
+
+    }
+
+}

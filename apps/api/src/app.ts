@@ -12,6 +12,7 @@ import productSpecificationRoutes from "./modules/product-specification/routes/p
 import designWizardRoutes from "./modules/design-wizard/routes/design-wizard.routes.js";
 import techPackRoutes from "./modules/tech-pack/routes/tech-pack.routes.js";
 import engineeringAssetRoutes from "./modules/engineering-assets/routes/engineering-asset.routes.js";
+import engineeringAssetRenderingRoutes from "./modules/engineering-assets/routes/engineering-asset-rendering.routes.js";
 import exportRoutes from "./modules/export/routes/export.routes.js";
 import healthRoutes from "./routes/health.routes.js";
 
@@ -37,6 +38,10 @@ app.use("/tech-pack", techPackRoutes);
 app.use(
     "/engineering-assets",
     engineeringAssetRoutes
+);
+app.use(
+    "/engineering-assets",
+    engineeringAssetRenderingRoutes
 );
 app.use("/exports", exportRoutes);
 

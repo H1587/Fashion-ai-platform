@@ -242,6 +242,8 @@ model EngineeringAsset {
 
   assetData Json?
 
+  renderedAssets RenderedAsset[]
+
   revision Int @default(1)
 
   createdAt DateTime @default(now())
@@ -249,4 +251,42 @@ model EngineeringAsset {
 
   @@index([techPackId])
   @@index([assetType])
+}
+
+model RenderedAsset {
+  id String @id @default(cuid())
+
+  engineeringAssetId String
+
+  engineeringAsset EngineeringAsset @relation(fields: [engineeringAssetId], references: [id], onDelete: Cascade)
+
+  format String
+
+  mimeType String
+
+  filename String?
+
+  storageLocation String?
+
+  width Int?
+
+  height Int?
+
+  promptVersion String?
+
+  provider String?
+
+  providerModel String?
+
+  providerMetadata Json?
+
+  revision Int @default(1)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  @@index([engineeringAssetId])
+
+  @@index([format])
 }
