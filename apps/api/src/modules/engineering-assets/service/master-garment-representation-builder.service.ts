@@ -20,6 +20,14 @@ import {
 
 import { prisma } from "../../../lib/prisma.js";
 
+import {
+    ImageSet,
+} from "../image-set/image-set.js";
+
+import {
+    CompositeReferenceBuilder,
+} from "../composite-reference/composite-reference-builder.js";
+
 export class MasterGarmentRepresentationBuilderService {
 
     private readonly uploadRepository =
@@ -33,6 +41,9 @@ export class MasterGarmentRepresentationBuilderService {
 
     private readonly engineeringAssetRepository =
         new EngineeringAssetRepository();
+
+    private readonly compositeReferenceBuilder =
+        new CompositeReferenceBuilder();
 
     async build(
         imageId: string,
@@ -50,6 +61,22 @@ export class MasterGarmentRepresentationBuilderService {
                 "Image not found."
             );
         }
+
+        const projectImages =
+            await this.uploadRepository.findByProjectId(
+                upload.projectId,
+                userId
+            );
+
+        const imageSet =
+            new ImageSet(
+                projectImages
+            );
+
+        const compositeReferenceSheet =
+            this.compositeReferenceBuilder.build(
+                imageSet
+            );
 
         const productSpecification =
             await this.specificationRepository.findLatest(
@@ -80,13 +107,12 @@ export class MasterGarmentRepresentationBuilderService {
 
         return {
 
-            images: [
-                upload,
-            ],
+            images:
+                projectImages,
 
-            referenceImages: [
-                upload.storedFilename,
-            ],
+            referenceImages:
+                compositeReferenceSheet.referenceImages,
+
             productSpecification,
 
             techPack,

@@ -2,6 +2,10 @@ import type {
     MasterGarmentRepresentation,
 } from "../types/master-garment-representation.js";
 
+import type {
+    RenderingRequest,
+} from "../types/engineering-asset-rendering-request.js";
+
 export interface RenderNode {
 
     id: string;
@@ -13,6 +17,8 @@ export interface RenderNode {
     priority: number;
 
     renderer: string;
+
+    request?: RenderingRequest;
 
     status:
     | "PENDING"
@@ -70,6 +76,18 @@ export class RenderPlanner {
 
                 status:
                     "PENDING",
+
+                request: {
+
+                    asset,
+
+                    outputFormat: "PNG",
+
+                    renderStyle: "TECHNICAL_LINE_ART",
+
+                    promptVersion: "v2",
+
+                },
 
             });
         }

@@ -21,17 +21,17 @@ export interface MasterFlatSketch {
 
 export interface MasterGarmentRepresentation {
 
+    /**
+     * Source images that define the canonical garment.
+     *
+     * These originate from the Composite Reference Builder,
+     * but the intermediate ImageSet and CompositeReferenceSheet
+     * are not retained by the representation.
+     */
     images: Image[];
 
     /**
-     * Canonical reference images used by the Rendering Engine.
-     *
-     * Sprint 11B:
-     * - Contains the uploaded garment image.
-     *
-     * Sprint 11C:
-     * - May contain a Composite Reference Sheet generated
-     *   from the complete Image Set.
+     * Canonical reference images consumed by rendering providers.
      */
     referenceImages: string[];
 

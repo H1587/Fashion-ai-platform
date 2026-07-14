@@ -38,14 +38,32 @@ import type {
     RenderedAssetDTO,
 } from "../dto/rendered-asset.dto.js";
 
+import {
+    GeminiProvider,
+} from "../../../services/ai/gemini-provider.js";
+
+import {
+    PollinationsProvider,
+} from "../../../services/ai/pollinations-provider.js";
+
+import {
+    ProviderRegistry,
+} from "../../../services/ai/providers/provider-registry.js";
+
+import {
+    ProviderRouter,
+} from "../../../services/ai/providers/provider-router.js";
+
 export class RenderingEngine {
 
     private readonly planner =
         new RenderPlanner();
 
-    private readonly masterFlatRenderer: MasterFlatRenderingService;
+    private readonly registry =
+        new ProviderRegistry();
 
-    private readonly specializedRenderer: SpecializedRenderingService;
+    private readonly router:
+        ProviderRouter;
 
     private readonly persistenceService =
         new RenderedAssetPersistenceService();
@@ -54,14 +72,19 @@ export class RenderingEngine {
         provider: AIProvider
     ) {
 
-        this.masterFlatRenderer =
-            new MasterFlatRenderingService(
-                provider
-            );
+        this.registry.register(
+            "openai",
+            new GeminiProvider()
+        );
 
-        this.specializedRenderer =
-            new SpecializedRenderingService(
-                provider
+        this.registry.register(
+            "cloudflare",
+            new PollinationsProvider()
+        );
+
+        this.router =
+            new ProviderRouter(
+                this.registry
             );
 
     }
@@ -80,58 +103,87 @@ export class RenderingEngine {
                 nodes
             );
 
-        // Step 1: Generate the canonical Master Flat Sketch
-        master.masterFlatSketch =
-            await this.masterFlatRenderer.render(
-                master
-            );
-
         const renderedAssets: RenderedAssetDTO[] = [];
 
-        for (const asset of master.engineeringAssets) {
+        while (true) {
 
-            const renderingRequest: RenderingRequest = {
+            const readyNodes =
+                graph.getReadyNodes();
 
-                asset,
+            if (readyNodes.length === 0) {
+                break;
+            }
 
-                outputFormat: "PNG",
+            for (const node of readyNodes) {
 
-                renderStyle: "TECHNICAL_LINE_ART",
+                const provider =
+                    this.router.resolve(
+                        node
+                    );
 
-                promptVersion: "v2",
+                switch (node.renderer) {
 
-            };
+                    case "MASTER_FLAT_RENDERER": {
 
-            const response =
-                await this.specializedRenderer.render(
+                        const renderer =
+                            new MasterFlatRenderingService(
+                                provider
+                            );
 
-                    master,
+                        master.masterFlatSketch =
+                            await renderer.render(
+                                master
+                            );
 
-                    renderingRequest
+                        break;
+                    }
 
+                    case "SPECIALIZED_RENDERER": {
+
+                        if (!node.request) {
+                            throw new Error(
+                                "RenderNode request missing."
+                            );
+                        }
+
+                        const renderer =
+                            new SpecializedRenderingService(
+                                provider
+                            );
+
+                        const response =
+                            await renderer.render(
+                                master,
+                                node.request
+                            );
+
+                        const persisted =
+                            await this.persistenceService.persist(
+                                node.request.asset.id,
+                                response.renderedOutput
+                            );
+
+                        renderedAssets.push(
+                            ...persisted
+                        );
+
+                        break;
+                    }
+
+                    default:
+                        throw new Error(
+                            `Unsupported renderer: ${node.renderer}`
+                        );
+
+                }
+
+                graph.markCompleted(
+                    node.id
                 );
 
-            const persisted =
-                await this.persistenceService.persist(
-
-                    asset.id,
-
-                    response.renderedOutput
-
-                );
-
-            renderedAssets.push(
-
-                ...persisted
-
-            );
+            }
 
         }
-
-        // Step 2
-        // Specialized rendering will be integrated after
-        // the Rendering Engine replaces the legacy
-        // EngineeringAssetRenderingService.
 
         return {
 
