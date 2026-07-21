@@ -62,6 +62,27 @@ export class ProviderRegistry {
 
     }
 
+    hasCapabilities(
+        name: string,
+        required: Iterable<ProviderCapability>,
+    ): boolean {
+
+        const registered =
+            this.providers.get(name);
+
+        if (!registered) {
+            return false;
+        }
+
+        return [...required].every(
+            capability =>
+                registered.capabilities.has(
+                    capability,
+                ),
+        );
+
+    }
+
     list(): string[] {
 
         return [

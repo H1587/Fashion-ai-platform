@@ -16,6 +16,13 @@ import {
 
 export class ProviderRouter {
 
+    private static readonly PROVIDER_PREFERENCE = [
+        "openai",
+        "qwen",
+        "google-imagen",
+        "cloudflare",
+    ] as const;
+
     constructor(
         private readonly registry:
             ProviderRegistry
@@ -54,17 +61,28 @@ export class ProviderRouter {
 
         }
 
-        const provider =
-            this.registry.findByCapabilities(
-                requiredCapabilities
-            );
+        for (
+            const providerName of
+            ProviderRouter.PROVIDER_PREFERENCE
+        ) {
 
-        if (provider) {
-            return provider;
+            if (
+                this.registry.hasCapabilities(
+                    providerName,
+                    requiredCapabilities,
+                )
+            ) {
+
+                return this.registry.get(
+                    providerName,
+                );
+
+            }
+
         }
 
-        return this.registry.get(
-            "cloudflare"
+        throw new Error(
+            "No provider satisfies the required capabilities.",
         );
 
     }
