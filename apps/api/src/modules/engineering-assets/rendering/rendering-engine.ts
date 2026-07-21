@@ -47,6 +47,10 @@ import {
 } from "../../../services/ai/pollinations-provider.js";
 
 import {
+    QwenProvider,
+} from "../../../services/ai/qwen-provider.js";
+
+import {
     ProviderRegistry,
 } from "../../../services/ai/providers/provider-registry.js";
 
@@ -91,6 +95,15 @@ export class RenderingEngine {
             [
                 ProviderCapability.IMAGE_GENERATION,
             ]
+        );
+
+        this.registry.register(
+            "qwen",
+            new QwenProvider(),
+            [
+                ProviderCapability.IMAGE_GENERATION,
+                ProviderCapability.REFERENCE_IMAGES,
+            ],
         );
 
         this.router =
