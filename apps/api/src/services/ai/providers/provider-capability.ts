@@ -1,0 +1,9 @@
+export enum ProviderCapability {
+
+    IMAGE_GENERATION = "IMAGE_GENERATION",
+
+    REFERENCE_IMAGES = "REFERENCE_IMAGES",
+
+    TEXT_GENERATION = "TEXT_GENERATION",
+
+}

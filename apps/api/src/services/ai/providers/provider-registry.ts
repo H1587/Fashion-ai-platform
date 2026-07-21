@@ -2,22 +2,41 @@ import type {
     AIProvider,
 } from "../ai-provider.js";
 
+import {
+    ProviderCapability,
+} from "./provider-capability.js";
+
+interface RegisteredProvider {
+
+    provider: AIProvider;
+
+    capabilities: Set<ProviderCapability>;
+
+}
+
 export class ProviderRegistry {
 
     private readonly providers =
         new Map<
             string,
-            AIProvider
+            RegisteredProvider
         >();
 
     register(
         name: string,
-        provider: AIProvider
+        provider: AIProvider,
+        capabilities: Iterable<ProviderCapability> = []
     ): void {
 
         this.providers.set(
             name,
-            provider
+            {
+                provider,
+                capabilities:
+                    new Set(
+                        capabilities
+                    ),
+            }
         );
 
     }
@@ -39,7 +58,7 @@ export class ProviderRegistry {
 
         }
 
-        return provider;
+        return provider.provider;
 
     }
 
@@ -51,4 +70,32 @@ export class ProviderRegistry {
 
     }
 
+    findByCapabilities(
+        required: Iterable<ProviderCapability>
+    ): AIProvider | undefined {
+
+        const requiredSet =
+            new Set(required);
+
+        for (const registered of this.providers.values()) {
+
+            const supported =
+                [...requiredSet].every(
+                    capability =>
+                        registered.capabilities.has(
+                            capability
+                        )
+                );
+
+            if (supported) {
+                return registered.provider;
+            }
+
+        }
+
+        return undefined;
+
+    }
+
 }
+

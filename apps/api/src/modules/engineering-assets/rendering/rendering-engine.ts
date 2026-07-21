@@ -54,6 +54,10 @@ import {
     ProviderRouter,
 } from "../../../services/ai/providers/provider-router.js";
 
+import {
+    ProviderCapability,
+} from "../../../services/ai/providers/provider-capability.js";
+
 export class RenderingEngine {
 
     private readonly planner =
@@ -73,13 +77,20 @@ export class RenderingEngine {
     ) {
 
         this.registry.register(
-            "openai",
-            new GeminiProvider()
+            "google-imagen",
+            new GeminiProvider(),
+            [
+                ProviderCapability.IMAGE_GENERATION,
+                ProviderCapability.REFERENCE_IMAGES,
+            ]
         );
 
         this.registry.register(
             "cloudflare",
-            new PollinationsProvider()
+            new PollinationsProvider(),
+            [
+                ProviderCapability.IMAGE_GENERATION,
+            ]
         );
 
         this.router =
