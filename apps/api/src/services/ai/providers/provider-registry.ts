@@ -12,6 +12,8 @@ interface RegisteredProvider {
 
     capabilities: Set<ProviderCapability>;
 
+    available: boolean;
+
 }
 
 export class ProviderRegistry {
@@ -32,10 +34,13 @@ export class ProviderRegistry {
             name,
             {
                 provider,
+
                 capabilities:
                     new Set(
                         capabilities
                     ),
+
+                available: true,
             }
         );
 
@@ -74,11 +79,14 @@ export class ProviderRegistry {
             return false;
         }
 
-        return [...required].every(
-            capability =>
-                registered.capabilities.has(
-                    capability,
-                ),
+        return (
+            registered.available &&
+            [...required].every(
+                capability =>
+                    registered.capabilities.has(
+                        capability,
+                    ),
+            )
         );
 
     }
